@@ -1,240 +1,293 @@
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .left-sidebar,
+  .right-sidebar {
+    order: -1; /* 移动端优先显示侧边栏 */
+  }
+}
+
 :root {
-    --padding: 16px;
+  --padding: 16px;
+  --primary-color: #007bff;
+  /* 主色调 */
+  --hover-color: #0056b3;
+  /* 悬停颜色 */
+  --nav-bg: #b4e9f3;
+  /* 导航背景 */
+  --highlight-bg: lightskyblue;
+  /* 高亮背景 */
+  --text-color: #333;
+  /* 主要文字颜色 */
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    height: 100%;
-    /* 确保 html 和 body 占满整个视口高度 */
-    margin: 0;
-    /* 去掉默认的外边距 */
+  height: 100vh;
+  /* 确保 html 和 body 占满整个视口高度 */
+  margin: 0;
+  /* 去掉默认的外边距 */
 }
 
 .container {
-    display: flex; /* 使用 Flexbox 布局 */
-    flex-direction: column; /* 垂直排列 */
-    min-height: 100vh; /* 容器最小高度为视口高度 */
+  display: flex;
+  /* 使用 Flexbox 布局 */
+  flex-direction: column;
+  /* 垂直排列 */
+  min-height: 100vh;
+  /* 容器最小高度为视口高度 */
+  padding-top: 70px;
 }
 
 .content {
-    flex: 1; /* 内容区占据剩余空间 */
-    padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.left-sidebar,
+.right-sidebar {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.main-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .fictyra-top {
-    display: flex;
-    justify-content: space-between;
-    width: 100%
+  display: flex;
+  position: fixed;
+  /* 固定定位 */
+  top: 0;
+  /* 固定在顶部 */
+  left: 0;
+  /* 左侧对齐 */
+  width: 100%;
+  /* 占满宽度 */
+  z-index: 1000;
+  /* 确保在最顶层 */
+  background: transparent;
+  /* 背景色防止内容穿透 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* 可选：添加阴影增强视觉层次 */
 }
 
 footer {
-    background-color: #f8f9fa;
-    /* 背景颜色 */
-    color: #6c757d;
-    /* 文字颜色 */
-    text-align: center;
-    /* 文字居中 */
-    padding: 15px 0;
-    /* 上下内边距 */
-    font-size: 14px;
-    /* 字体大小 */
-    border-top: 1px solid #e9ecef;
-    /* 顶部边框 */
-    position: relative;
-    /* 相对定位 */
-    bottom: 0;
-    /* 底部对齐 */
-    width: 100%;
-    /* 宽度占满 */
-    margin-top: 20px;
-    /* 与内容区的间距 */
+  background-color: #f8f9fa;
+  /* 背景颜色 */
+  color: #6c757d;
+  /* 文字颜色 */
+  text-align: center;
+  /* 文字居中 */
+  padding: 15px 0;
+  /* 上下内边距 */
+  font-size: 14px;
+  /* 字体大小 */
+  border-top: 1px solid #e9ecef;
+  /* 顶部边框 */
+  position: relative;
+  /* 相对定位 */
+  bottom: 0;
+  /* 底部对齐 */
+  width: 100%;
+  /* 宽度占满 */
+  margin-top: 20px;
+  /* 与内容区的间距 */
 }
 
 footer a {
-    color: #007bff;
-    /* 链接颜色 */
-    text-decoration: none;
-    /* 去掉下划线 */
+  color: var(--primary-color);
+  /* 链接颜色 */
+  text-decoration: none;
+  /* 去掉下划线 */
 }
 
 footer a:hover {
-    text-decoration: underline;
-    /* 鼠标悬停时显示下划线 */
+  text-decoration: underline;
+  /* 鼠标悬停时显示下划线 */
 }
 
 .navbar {
-    display: flex;
-    width: 280px;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #b4e9f3;
-    margin: 0.5rem;
-    border: 3px solid white;
-    border-radius: 5rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  width: 280px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--nav-bg);
+  margin: 0.5rem;
+  border: 3px solid white;
+  border-radius: 5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-
 .nav-container {
-    margin: 0px 16px;
-    width: 280px;
-    position: relative;
-    justify-content: flex-start;
-    line-height: 20px;
+  margin: 0px 16px;
+  width: 280px;
+  position: relative;
+  justify-content: flex-start;
+  line-height: 20px;
 }
 
 .bg {
-    position: absolute;
-    height: 100%;
-    width: 50px;
-    z-index: 1;
-    border-radius: 16px;
-    background-color: lightskyblue;
-    top: 0;
-    left: 8px;
-    transition: 0.3s;
+  position: absolute;
+  height: 100%;
+  width: 50px;
+  z-index: 1;
+  border-radius: 16px;
+  background-color: lightskyblue;
+  top: 0;
+  left: 8px;
+  transition: 0.3s;
 }
 
-
 .nav-links {
-    display: flex;
-    list-style: none;
-    align-items: center;
-    padding: 8px var(--padding);
-    justify-content: space-between;
-    text-align: center;
+  display: flex;
+  list-style: none;
+  align-items: center;
+  padding: 8px var(--padding);
+  justify-content: space-between;
+  text-align: center;
 }
 
 .nav-links a {
-    color: black;
-    position: relative;
-    text-decoration: none;
-    transition: color 0.3s;
-    z-index: 2;
+  color: black;
+  position: relative;
+  text-decoration: none;
+  transition: color 0.3s;
+  z-index: 2;
 }
 
 .nav-links a:hover {
-    color: #007bff;
-    font-weight: bold;
-    transform: scale(1.3)
+  color: var(--primary-color);
+  font-weight: bold;
+  transform: scale(1.3);
 }
 
-.nav-item:nth-child(2):hover~.bg {
-    left: 65.5px;
-    /* 根据实际项宽度调整 */
+.nav-item:nth-child(2):hover ~ .bg {
+  left: 65.5px;
+  /* 根据实际项宽度调整 */
 }
 
-.nav-item:nth-child(3):hover~.bg {
-    left: 124.5px;
-    /* 根据实际项宽度调整 */
+.nav-item:nth-child(3):hover ~ .bg {
+  left: 124.5px;
+  /* 根据实际项宽度调整 */
 }
 
-.nav-item:nth-child(4):hover~.bg {
-    left: 183.5px;
-    /* 根据实际项宽度调整 */
+.nav-item:nth-child(4):hover ~ .bg {
+  left: 183.5px;
+  /* 根据实际项宽度调整 */
 }
-
 
 .search-box {
-    display: flex;
-    padding: 8px;
-    background-color: lightskyblue;
-    border: 9px;
-    border-radius: 40px;
-    justify-content: flex-end;
-    margin-top: 5px;
-    margin-left: auto;
-    margin-right: 16px;
-    align-items: center;
+  display: flex;
+  padding: 8px;
+  background-color: whitesmoke;
+  border-radius: 40px;
+  justify-content: flex-end;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: 16px;
+  align-items: center;
 }
 
 .search-txt {
-    color: black;
-    width: 0;
-    font-size: 15px;
-    background: none;
-    background-color: transparent;
-    border: none;
-    /* 如果需要去掉边框 */
-    transition: width 0.3s ease;
+  color: black;
+  width: 0;
+  font-size: 15px;
+  background: none;
+  background-color: transparent;
+  border: none;
+  /* 如果需要去掉边框 */
+  transition: width 0.3s ease;
 }
 
-.search-box:hover>.search-txt {
-    width: 300px;
-    padding-left: 20px;
+.search-box:hover > .search-txt {
+  width: 300px;
+  padding-left: 20px;
+}
+
+.search-box:hover > .search-btn {
+    background-color: var(--nav-bg);
 }
 
 .search-txt:focus {
-    background: none;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    box-shadow: none;
+  background: none;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .search-btn {
-    color: #e84118;
-    float: right;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #2f3640;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 0.4s;
-    text-decoration: none;
+  color: var(--primary-color);
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  text-decoration: none;
 }
 
 .avatar-container {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    cursor: pointer;
-    margin-top: 5px;
-    margin-left: 12px;
-    margin-right: 22px;
-    transition: transform 0.5s ease, box-shadow 0.3s ease-in-out;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-left: 12px;
+  margin-right: 22px;
+  transition:
+    transform 0.5s ease,
+    box-shadow 0.3s ease-in-out;
 }
 
 .avatar-container:hover {
-    transform: scale(1.3) translate(10px, 8px);
-    box-shadow: 0 -3px 10px 3px rgba(0, 123, 255, 0.25);
+  transform: scale(1.3) translate(10px, 8px);
+  box-shadow: 0 -3px 10px 3px rgba(0, 123, 255, 0.25);
 }
 
 .avatar-ul {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .avatar {
-    width: 42px;
-    height: 42px;
-    transition: transform 0.3s ease-in-out;
-    position: relative;
-    z-index: 90;
+  width: 42px;
+  height: 42px;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  z-index: 90;
 }
 
 .avatar img {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
 
-
+/* 移除 .avatar:hover 中的冗余属性 */
 .avatar:hover {
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    transform: scale(2) translate(-10px, 10px);
+  transform: scale(2) translate(-10px, 10px);
 }
