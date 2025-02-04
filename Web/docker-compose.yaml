@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: fictyra
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: fictyra-db
+      POSTGRES_PASSWORD: Fictyra861111!
+      POSTGRES_DB: fictyra_db
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d  # 初始化 SQL 文件目录
+      - pgdata:/var/lib/postgresql/data  # 数据持久化目录
+      # - ./config/postgresql.conf:/var/lib/postgresql/data/postgresql.conf  # 配置文件映射
+    restart: always
+
+volumes:
+  pgdata:
