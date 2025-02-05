@@ -45,7 +45,6 @@ body {
   /* 垂直排列 */
   min-height: 100vh;
   /* 容器最小高度为视口高度 */
-  padding-top: 70px;
 }
 
 .content {
@@ -255,6 +254,7 @@ footer a:hover {
   align-items: center;
   transition: 0.4s;
   text-decoration: none;
+  
 }
 
 .avatar-container {

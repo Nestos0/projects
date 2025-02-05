@@ -1,5 +1,6 @@
 // server.js
 const express = require("express");
+const bodyParser = require("body-parser");
 const { Client } = require("pg");
 const cors = require("cors");
 const app = express();
@@ -12,6 +13,8 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // 配置 PostgreSQL 数据库连接参数
 const client = new Client({
@@ -41,6 +44,32 @@ app.get("/api/novels_db", async (req, res) => {
     console.error("查询错误:", err);
     res.status(500).send("查询数据库时发生错误");
   }
+});
+
+app.get("/api/account", async (req, res) => {
+// upload the user's account information
+  try {
+    const result = await client.query(
+      "INSERT INTO users (username, password, email, created_at) VALUES ('test', 'test', 'test', NOW()) RETURNING id",
+    );
+    res.send(result.rows);
+  } catch (err) {
+    console.error("查询错误:", err);
+    res.status(500).send("查询数据库时发生错误");
+  }
+}
+)
+
+// 处理表单提交
+app.post("/submit", (req, res) => {
+  const { username, email } = req.body;
+
+  console.log("接收到的表单数据：");
+  console.log("请求体:", req.body);
+  console.log("用户名:", username);
+  console.log("邮箱:", email);
+
+  res.json({ message: "表单提交成功！", data: { username, email } });
 });
 
 // 启动服务器
