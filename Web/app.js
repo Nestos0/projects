@@ -46,31 +46,49 @@ app.get("/api/novels_db", async (req, res) => {
   }
 });
 
-app.get("/api/account", async (req, res) => {
-// upload the user's account information
+app.post("/api/account", async (req, res) => {
+  // 解析用户提交的数据
+  const { username, password, email } = req.body;
+
   try {
+    // 使用参数化查询防止 SQL 注入
     const result = await client.query(
-      "INSERT INTO users (username, password, email, created_at) VALUES ('test', 'test', 'test', NOW()) RETURNING id",
+      `INSERT INTO users (username, password, email, created_at) 
+       VALUES ($1, $2, $3, NOW()) 
+       RETURNING id`,
+      [username, password, email], // 参数化输入
     );
-    res.send(result.rows);
+
+    console.log("数据库插入成功:", result.rows[0]);
+
+    // 发送 JSON 响应，包含数据库返回的 id
+    res.json({
+      message: "表单提交成功！",
+      data: { username, email, id: result.rows[0].id },
+    });
   } catch (err) {
+    if (err.code === "23505") {
+      // 处理唯一约束冲突（用户名已存在）
+      return res
+        .status(409)
+        .json({ error: "用户名已存在，请选择其他用户名。" });
+    }
     console.error("查询错误:", err);
-    res.status(500).send("查询数据库时发生错误");
+    res.status(500).json({ error: "查询数据库时发生错误" });
   }
-}
-)
-
-// 处理表单提交
-app.post("/submit", (req, res) => {
-  const { username, email } = req.body;
-
-  console.log("接收到的表单数据：");
-  console.log("请求体:", req.body);
-  console.log("用户名:", username);
-  console.log("邮箱:", email);
-
-  res.json({ message: "表单提交成功！", data: { username, email } });
 });
+
+// // 处理表单提交
+// app.post("/submit", (req, res) => {
+//   const { username, email } = req.body;
+
+//   console.log("接收到的表单数据：");
+//   console.log("请求体:", req.body);
+//   console.log("用户名:", username);
+//   console.log("邮箱:", email);
+
+//   res.json({ message: "表单提交成功！", data: { username, email } });
+// });
 
 // 启动服务器
 app.listen(port, () => {
